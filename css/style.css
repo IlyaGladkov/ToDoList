@@ -20,22 +20,22 @@ body {
     margin-bottom: 30px;
 }
 
-textarea {
+.pullText {
     min-height: 70px;
     resize: none;
     margin-bottom: 50px;
 }
 
-select, input, button {
+.categories, .date, .addButton {
     padding: 5px 10px;
     cursor: pointer;
 }
 
-select {
+.categories {
     height: 33px;
 }
 
-button {
+.addButton {
     align-self: flex-end;
     height: 33px;
     width: 100px;
@@ -45,7 +45,7 @@ button {
     border: 1px solid #000;
 }
 
-button:hover {
+.addButton:hover {
     background-color: #347759;
 }
 
