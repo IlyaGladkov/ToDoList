@@ -1,10 +1,10 @@
-let inputDate = document.getElementsByClassName('date')[0];
+let inputDate = document.querySelector('.date');
 inputDate.valueAsDate = new Date();
  
-let select = document.getElementsByClassName('categories')[0];
-let textArea = document.getElementsByClassName('pullText')[0];
+let select = document.querySelector('.categories');
+let textArea = document.querySelector('.pullText');
 
-let buttonClick = document.getElementsByClassName('addButton')[0];
+let buttonClick = document.querySelector('.addButton');
 buttonClick.addEventListener('click', () => {
     let selectedCategory = select.options[select.selectedIndex].value;
     let selectedDate = inputDate.value.split('-').splice(1,2).reverse().join('.');
@@ -18,7 +18,7 @@ buttonClick.addEventListener('click', () => {
         tr.append(td);
     }
     tr.childNodes[1].className = 'text';
-    let table = document.getElementsByClassName('list')[0];
+    let table = document.querySelector('.list');
     table.append(tr); 
 
     textArea.value = '';
