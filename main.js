@@ -5,13 +5,13 @@ let select = document.querySelector('.categories');
 let textArea = document.querySelector('.pullText');
 
 let buttonClick = document.querySelector('.addButton');
-let arrStorage = [];
+let todoItems = [];
 
-function createNewThing(needData) {
+function renderTodoItem(item) {
     let tr = document.createElement('tr');
-    for (let i = 0; i < 3; i++) {
+    for (let key in item) {
         let td = document.createElement('td');
-        td.textContent = needData[i];
+        td.textContent = key == 'date' ? item[key].slice(5).replace('-', '.') : item[key];
         tr.append(td);
     }
     tr.childNodes[1].className = 'text';
@@ -20,22 +20,27 @@ function createNewThing(needData) {
 }
 
 buttonClick.addEventListener('click', () => {
-    let selectedCategory = select.options[select.selectedIndex].value;
-    let selectedDate = inputDate.value.split('-').splice(1,2).reverse().join('.');
+    let selectedCategory = select.value;
+    let selectedDate = inputDate.value;
     let text = textArea.value;
-    let masHelp = [selectedCategory, text, selectedDate];
-    arrStorage.push(masHelp);
+    let tasks = {
+        category: selectedCategory,
+        text: text,
+        date: selectedDate
+    };
+    todoItems.push(tasks);
 
-    localStorage.setItem('tasks', JSON.stringify(arrStorage));
+    localStorage.setItem('tasks', JSON.stringify(todoItems));
 
-    createNewThing(masHelp);
+    renderTodoItem(tasks);
     
     textArea.value = '';
 })
 
 if (localStorage.getItem('tasks') != undefined) {
     let backFromStorage = JSON.parse(localStorage.getItem('tasks'));
-    backFromStorage.forEach(ToDoElement => {
-        createNewThing(ToDoElement);
+    backFromStorage.forEach(toDoElement => {
+        renderTodoItem(toDoElement);
+        todoItems.push(toDoElement);
     });
 }
