@@ -1,40 +1,38 @@
-let inputDate = document.querySelector('.date');
-inputDate.valueAsDate = new Date();
- 
-let select = document.querySelector('.categories');
-let textArea = document.querySelector('.pullText');
+let $inputDate = document.querySelector('.date');
+$inputDate.valueAsDate = new Date();
+const formatDate = { month: 'numeric', day: 'numeric' };
 
-let buttonClick = document.querySelector('.addButton');
-let todoItems = [];
+let $selectedCategory = document.querySelector('.categories');
+let $textArea = document.querySelector('.pullText');
+
+let $buttonAdd = document.querySelector('.addButton');
+let todoItems = []
 
 function renderTodoItem(item) {
-    let tr = document.createElement('tr');
+    let $tr = document.createElement('tr');
     for (let key in item) {
-        let td = document.createElement('td');
-        td.textContent = key == 'date' ? item[key].slice(5).replace('-', '.') : item[key];
-        tr.append(td);
+        let $td = document.createElement('td');
+        $td.textContent = key == 'date' ? new Date(item[key]).toLocaleDateString('ru-RU', formatDate) : item[key];
+        $tr.append($td);
     }
-    tr.childNodes[1].className = 'text';
-    let table = document.querySelector('.list');
-    table.append(tr); 
+    $tr.childNodes[1].className = 'text';
+    let $table = document.querySelector('.list');
+    $table.append($tr);
 }
 
-buttonClick.addEventListener('click', () => {
-    let selectedCategory = select.value;
-    let selectedDate = inputDate.value;
-    let text = textArea.value;
-    let tasks = {
-        category: selectedCategory,
-        text: text,
-        date: selectedDate
+$buttonAdd.addEventListener('click', () => {
+    let task = {
+        category: $selectedCategory.value,
+        text: $textArea.value,
+        date: $inputDate.valueAsDate
     };
-    todoItems.push(tasks);
+    todoItems.push(task);
 
     localStorage.setItem('tasks', JSON.stringify(todoItems));
 
-    renderTodoItem(tasks);
-    
-    textArea.value = '';
+    renderTodoItem(task);
+
+    $textArea.value = '';
 })
 
 if (localStorage.getItem('tasks') != undefined) {
